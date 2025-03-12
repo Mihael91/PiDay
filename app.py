@@ -5,7 +5,7 @@ import subprocess
 
 app = Flask(__name__)
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["GET","POST"])
 def main():
     if request.method == "POST":
         
