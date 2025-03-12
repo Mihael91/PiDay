@@ -50,7 +50,7 @@ def main():
             
             subprocess.run(command)
             subprocess.run(["start", 'glazbene_note.pdf'], shell=True)
-        elif action=="sound:
+        elif action=="sound":
             pygame.init()
             pygame.mixer.music.load("pimelodija.mid")
             pygame.mixer.music.play()
