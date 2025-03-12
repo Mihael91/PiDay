@@ -46,15 +46,24 @@ def main():
         
         mid.save('pimelodija.mid')
         if action=="sheet":
-            musescore_path = r"C:\Program Files\MuseScore 4\bin\MuseScore4.exe"
-            command = [musescore_path, 'pimelodija.mid', "-o", 'glazbene_note.pdf', "--style", 'compress.mss']
-            
-            subprocess.run(command)
-            subprocess.run(["start", 'glazbene_note.pdf'], shell=True)
+            musescore_path = "/usr/bin/mscore" 
+            command = [musescore_path, midi_path, "-o", pdf_path]
+
+            try:
+                subprocess.run(command, check=True)
+                return render_template("index.html", pdf_available=True)
         elif action=="sound":
             return render_template("index.html")  
 
     return render_template("index.html")  
+
+@app.route("/download-pdf")
+def download_pdf():
+    return send_from_directory(STATIC_DIR, "glazbene_note.pdf", as_attachment=True)
+
+@app.route("/static/<path:filename>")
+def serve_static(filename):
+    return send_from_directory(STATIC_DIR, filename)
     
 if __name__ == "__main__":
     app.run(debug=True)
