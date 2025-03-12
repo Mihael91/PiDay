@@ -10,8 +10,21 @@
     <form action="/" method="POST">
         <label for="velicina">Unesi broj znamenki: </label>
         <input type="number" id="velicina" name="velicina" min="1" required>
-        <button type="submit" name="action" value="sheet">Generiraj note</button>
-        <button type="submit" name="action" value="sound">Pusti zvuk</button>
+        <button type="submit" name="action" value="sheet">Prikaži Notni Zapis</button>
+        <button type="submit" name="action" value="sound">Pusti Zvuk</button>
     </form>
+
+    <audio id="player" controls loop style="display:none;">
+        <source src="{{ url_for('static', filename='pimelodija.mid') }}" type="audio/midi">
+        Your browser does not support MIDI playback.
+    </audio>
+
+    <script>
+        function playSound() {
+            let player = document.getElementById("player");
+            player.style.display = "block";
+            player.play();
+        }
+    </script>
 </body>
 </html>
