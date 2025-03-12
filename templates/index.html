@@ -14,17 +14,15 @@
         <button type="submit" name="action" value="sound">Pusti Zvuk</button>
     </form>
 
-    <audio id="player" controls loop style="display:none;">
-        <source src="{{ url_for('static', filename='pimelodija.mid') }}" type="audio/midi">
-        Your browser does not support MIDI playback.
-    </audio>
+    {% if pdf_available %}
+        <p><a href="{{ url_for('download_pdf') }}" download>📄 Preuzmi Notni Zapis</a></p>
+    {% endif %}
 
-    <script>
-        function playSound() {
-            let player = document.getElementById("player");
-            player.style.display = "block";
-            player.play();
-        }
-    </script>
+    {% if midi_file %}
+        <audio id="player" controls loop>
+            <source src="{{ url_for('static', filename=midi_file) }}" type="audio/midi">
+            Your browser does not support MIDI playback.
+        </audio>
+    {% endif %}
 </body>
 </html>
