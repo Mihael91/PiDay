@@ -9,6 +9,7 @@ def main():
     if request.method == "POST":
         
         velicina = int(request.form["velicina"])
+        action = request.form["action"]
         note = []
         mid = MidiFile()
         melodija = MidiTrack()
@@ -43,22 +44,18 @@ def main():
             melodija.append(Message('note_off', note=temp, velocity=64, time=200))
         
         mid.save('pimelodija.mid')
-
-@app.piday("/", methods=["GET", "POST"])
-def main():
-
-   
-    musescore_path = r"C:\Program Files\MuseScore 4\bin\MuseScore4.exe"
-    command = [musescore_path, 'pimelodija.mid', "-o", 'glazbene_note.pdf', "--style", 'compress.mss']
-    
-    subprocess.run(command)
-    subprocess.run(["start", 'glazbene_note.pdf'], shell=True)
-
-pygame.init()
-pygame.mixer.music.load("pimelodija.mid")
-pygame.mixer.music.play()
-while pygame.mixer.music.get_busy():
-    continue
+        if action="sheet":
+            musescore_path = r"C:\Program Files\MuseScore 4\bin\MuseScore4.exe"
+            command = [musescore_path, 'pimelodija.mid', "-o", 'glazbene_note.pdf', "--style", 'compress.mss']
+            
+            subprocess.run(command)
+            subprocess.run(["start", 'glazbene_note.pdf'], shell=True)
+        else:
+            pygame.init()
+            pygame.mixer.music.load("pimelodija.mid")
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy():
+                continue
 
 
 
