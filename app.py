@@ -4,7 +4,7 @@ import subprocess
 
 app = Flask(__name__)
 
-@app.piday("/", methods=["POST"])
+@app.route("/", methods=["POST"])
 def main():
     if request.method == "POST":
         
