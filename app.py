@@ -1,4 +1,4 @@
-import pygame
+
 from mido import Message, MidiFile, MidiTrack
 from flask import Flask, request, render_template
 import subprocess
@@ -52,11 +52,7 @@ def main():
             subprocess.run(command)
             subprocess.run(["start", 'glazbene_note.pdf'], shell=True)
         elif action=="sound":
-            pygame.init()
-            pygame.mixer.music.load("pimelodija.mid")
-            pygame.mixer.music.play()
-            while pygame.mixer.music.get_busy():
-                continue
+            return render_template("index.html")  
 
     return render_template("index.html")  
     
